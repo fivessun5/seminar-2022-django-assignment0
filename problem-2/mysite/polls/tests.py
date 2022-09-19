@@ -5,7 +5,7 @@ from django.utils import timezone
 from polls import models
 
 
-def create_question(self, question_text: str, days: int) -> models.Question:
+def create_question(question_text: str, days: int) -> models.Question:
     target_time = timezone.now() + datetime.timedelta(days=days)
     return models.Question.objects.create(
         question_text=question_text, pub_date=target_time
