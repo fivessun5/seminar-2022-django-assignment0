@@ -8,11 +8,6 @@ from polls import models
 
 
 def index(request: http.HttpRequest) -> http.HttpResponse:
-    # Normal
-    # template = loader.get_template("polls/index.html")
-    # return http.HttpResponse(template.render(context, request))
-
-    # ShortCut
     latest_question_list = models.Question.objects.order_by("-pub_date")[:5]
     context = {
         "latest_question_list": latest_question_list,
@@ -21,13 +16,6 @@ def index(request: http.HttpRequest) -> http.HttpResponse:
 
 
 def detail(request: http.HttpRequest, question_id: int) -> http.HttpResponse:
-    # Normal
-    # try:
-    #     question = models.Question.objects.get(pk=question_id)
-    # except models.Question.DoesNotExist:
-    #     raise http.Http404("Question does not exist")
-
-    # ShortCut
     question = shortcuts.get_object_or_404(models.Question, pk=question_id)
     context = {"question": question}
     return shortcuts.render(request, "polls/detail.html", context)
